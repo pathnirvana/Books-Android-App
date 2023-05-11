@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     defaultConfig {
         applicationId "lk.pitaka.books"
         minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 5
-        versionName "1.5"
+        targetSdkVersion 33
+        versionCode 16
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
