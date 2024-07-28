@@ -3,6 +3,8 @@ package lk.pitaka.books;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         WebView myWebView = (WebView) findViewById(R.id.mainWebView);
         android.webkit.WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webSettings.setLayoutAlgorithm(android.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -59,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 webviewLoadUrl += appLinkPath;
             } else { // /books/ or /books
-                webviewLoadUrl = "https://pitaka.lk/books/index.html";
+                webviewLoadUrl += "index.html";
             }
         } else { // app launcher
-            webviewLoadUrl += "app-index.html";
+            webviewLoadUrl += "index.html";
         }
 
         Log.e("LOG_TAG", "webview Url : " + webviewLoadUrl);
