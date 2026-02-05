@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':jathaka_images_asset'

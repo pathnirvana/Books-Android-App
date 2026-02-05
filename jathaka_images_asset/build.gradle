@@ -1,0 +1,8 @@
+apply plugin: 'com.android.asset-pack'
+
+assetPack {
+    packName = "jathaka_images_asset" // The name of the asset pack
+    dynamicDelivery {
+        deliveryType = "install-time"
+    }
+}
