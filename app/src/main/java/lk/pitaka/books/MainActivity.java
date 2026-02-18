@@ -1,7 +1,9 @@
 package lk.pitaka.books;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.PackageInfo;
@@ -12,12 +14,32 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
+    private WebView myWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myWebView =  findViewById(R.id.mainWebView);
 
+        setupWebView();
+
+        // 4. Handle Back Button
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (myWebView.canGoBack()) {
+                    myWebView.goBack();
+                } else {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+        });
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setupWebView() {
         // my code below
         WebViewClient client = new WebViewClient() {
             @Override
@@ -37,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        WebView myWebView = (WebView) findViewById(R.id.mainWebView);
         android.webkit.WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -45,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webSettings.setLayoutAlgorithm(android.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         myWebView.setWebViewClient(client);
+        myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
         String webviewLoadUrl = "file:///android_asset/";
         Intent appLinkIntent = getIntent();
@@ -71,18 +93,5 @@ public class MainActivity extends AppCompatActivity {
         Log.e("LOG_TAG", "webview Url : " + webviewLoadUrl);
         myWebView.loadUrl(webviewLoadUrl);
         //myWebView.loadUrl("file:///android_asset/app-index.html");
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        WebView myWebView = (WebView) findViewById(R.id.mainWebView);
-        // Check if the key event was the Back button and if there's history
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
-            myWebView.goBack();
-            return true;
-        }
-        // If it wasn't the Back key or there's no web page history, bubble up to the default
-        // system behavior (probably exit the activity)
-        return super.onKeyDown(keyCode, event);
     }
 }
