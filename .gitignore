@@ -1,10 +1,12 @@
 *.iml
 .gradle
 /local.properties
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
+.idea/
 .DS_Store
-/build
+build/
 /captures
 .externalNativeBuild
+/app/release/
+# the sites, copied in by dev/sync-apps.sh of the pitaka.lk repo
+/app/src/main/assets/
+/*_asset/src/main/assets/
