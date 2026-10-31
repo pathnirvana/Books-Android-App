@@ -1,1 +1,1 @@
-include ':app', ':jathaka_images_asset'
+include ':app', ':jathaka_images_asset', ':dhammapada_media_asset'

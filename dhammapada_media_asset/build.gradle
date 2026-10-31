@@ -1,0 +1,8 @@
+apply plugin: 'com.android.asset-pack'
+
+assetPack {
+    packName = "dhammapada_media_asset" // the dhammapada paintings, thumbnails and recordings (dev/sync-apps.sh of pitaka.lk)
+    dynamicDelivery {
+        deliveryType = "install-time"
+    }
+}

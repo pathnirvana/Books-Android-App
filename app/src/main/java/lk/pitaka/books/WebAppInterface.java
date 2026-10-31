@@ -15,6 +15,15 @@ public class WebAppInterface {
         mContext = c;
     }
 
+    static String oldStorage; // the localStorage of the apps before 3.0 (MainActivity.migrateStorage), given once
+
+    @JavascriptInterface
+    public String takeOldStorage() {
+        String s = oldStorage;
+        oldStorage = null;
+        return s;
+    }
+
     @JavascriptInterface
     public void setStatusBarColor(final String colorHex) {
         if (mContext instanceof Activity) {
